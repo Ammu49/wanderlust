@@ -125,3 +125,8 @@ body {
 .nav-link:hover {
     color: #000000;
 }
+
+#map {  
+    height: 400px;
+     width: 70vh;
+    }

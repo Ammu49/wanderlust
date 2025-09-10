@@ -10,7 +10,7 @@ Airbnb clone web project - Wanderlust
 - Frontend: HTML, CSS, JavaScript, EJS
 - Backend: Node.js, Express
 - Database: MongoDB
-- Other: Passport.js / JWT 
+- Other: Passport.js / JWT , Maptiler
 
 ## 🚀 Installation
 1. Clone this repository:
