@@ -55,76 +55,85 @@ body {
 }
 
 /*cards*/
+/* ===== SIMPLE & CLEAN CARDS ===== */
+
 .listing-link {
     text-decoration: none;
 }
 
 .card {
-    background-color: #e9f3ea !important;
-    border-radius: 5% !important;
-    border: solid black !important;
+    background-color: #f8fff9 !important;
+    border-radius: 15px !important;
+    border: 1px solid #d4e6d5 !important;
     height: 100% !important;
-    margin-bottom: 15px;
-    margin-right: 30px !important;
+    margin-bottom: 20px;
+    margin-right: 0 !important;
+    max-width: 100%;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
 }
 
 .card-img-top {
-    margin: 0 0 5px 0 !important;
-    border-radius: 5% !important;
-    border-bottom-right-radius: 0% !important;
-    border-bottom-left-radius: 0% !important;
-    /* height: 250px !important;
-    width:100% !important; */
+    margin: 0 !important;
+    border-radius: 15px 15px 0 0 !important;
+    height: 250px !important;
+    width: 100% !important;
     object-fit: cover !important;
 }
 
 .card-body {
-    padding: 0 !important;
+    padding: 15px !important;
 }
-
 
 .card-img-overlay {
     opacity: 0;
 }
 
-.card-img-overlay:hover {
-    opacity: 0.2;
-    background-color: white;
-}
-
 .card-text {
-    margin-left: 55px;
+    margin-left: 0 !important;
+    color: #2d5a31;
+    font-size: 1rem;
 }
 
+.card-text b {
+    color: #1a472e;
+    font-size: 1.1rem;
+}
+
+/* Keep your existing styles but cleaner */
 .show-img {
-    /* border: #222222 solid 2px; */
     height: 30vh;
-    /* width: 70vh !important; */
-    border-radius: 0px !important;
+    border-radius: 10px !important;
+    object-fit: cover;
 }
 
 .btns {
     display: flex;
+    gap: 10px;
 }
 
 .new-listing {
-    border: solid 3px;
+    border: 2px solid #52c971;
     border-radius: 15px;
-    border-color: rgb(183, 123, 248);
+    padding: 20px;
+    background-color: #f0f8f1;
 }
 
 .review-card {
-    border-radius: 0px !important;
-    border-color: black;
-    border: 5px ;
-    border-style: inset;
-    padding: 5px;
-    background-color: #c9f8e2 ;
+    border-radius: 10px !important;
+    border: 2px solid #52c971;
+    padding: 15px;
+    background-color: #c9f8e2;
+    margin-bottom: 15px;
 }
 
 .nav-link:hover {
     color: #000000;
 }
+
 
 #map {  
     height: 400px;
