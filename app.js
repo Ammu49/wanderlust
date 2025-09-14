@@ -16,6 +16,8 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
+const uri = "mongodb://127.0.0.1:27017/wanderlust"
+// const dbURL = process.env.ATLASDB_URL;
 
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
@@ -33,13 +35,6 @@ const sessionOptions = {
         httpOnly: true, //cross attacks
     }
 };
-
-
-// app.get("/", (req, res) => {
-//     res.send("Hi I'am the root");
-// });
-
-
 
 app.use(session(sessionOptions));
 
@@ -72,7 +67,7 @@ app.use(express.urlencoded({extended: true}));
 
 
 async function main() {
-    await mongoose.connect("mongodb://127.0.0.1:27017/wanderlust");
+    await mongoose.connect(uri);
 }
 
 app.use((req, res, next) => {

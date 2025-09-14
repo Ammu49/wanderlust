@@ -19,8 +19,18 @@ router
     wrapAsync(listingController.createListing));//Create route
 
 
+//Search route
+router
+.get(
+    "/search",
+    wrapAsync(listingController.search)
+);
+
+
 //New route
 router.get("/new", isLoggedIn, listingController.renderNewForm);
+
+
 
 router
 .route("/:id")
@@ -43,4 +53,35 @@ router.get("/:id/edit",
 
     wrapAsync(listingController.editListing));
 
+
+
+router.get("/listings", async (req, res) => {
+    try {
+        const { q } = req.query;
+        let allListings;
+
+        if (q) {
+            // Search only by title and location
+            const searchRegex = new RegExp(q, 'i');
+            const searchQuery = {
+                     title: searchRegex 
+            };
+            allListings = await Listing.find(searchQuery);
+        } else {
+            // Show all listings if no search query
+            allListings = await Listing.find({});
+        }
+
+        res.render("listings/index", { 
+            allListings: allListings
+        });
+
+    } catch (error) {
+        console.error("Error:", error);
+        res.render("listings/index", { allListings: [] });
+    }
+});
+    
+
 module.exports = router;
+

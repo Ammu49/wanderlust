@@ -1,0 +1,23 @@
+<% layout("/layouts/boilerplate") %> 
+
+    <div class="row row-cols-lg-4 row-cols-md-2 row-cols-sm-1 row-cols-1 g-4 mt-1">
+      <% for(let listing of allListings) { %>
+        <a href="/listings/<%=listing._id%>" class="listing-link">
+        <div class="card col" style="width: 20rem;">
+            <img src="<%= listing.image.url || 'https://th.bing.com/th/id/OIP.jHvTOSF7924Ah63W7mozxQHaEo?rs=1&pid=ImgDetMain' %>"
+             class="card-img-top"
+             alt="listing_image"
+             style="height: 20rem;">
+             <div class="card-img-overlay"></div>
+            <div class="card-body">
+              <p class="card-text">
+                <b><%= listing.title %></b> <br /> 
+                &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "Price not available" %> / night 
+                <i class="tax-info">&nbsp; &nbsp;<%= listing.price %></i>
+                %>
+            </p>
+            </div>
+        </div>
+    </a>
+      <% } %>
+    </div>

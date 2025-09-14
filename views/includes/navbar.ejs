@@ -8,6 +8,18 @@
         <div class="navbar-nav">
           <a class="nav-link" href="/listings">Explore</a>
         </div>
+
+      <div class="search-container">
+        <div class="search-bar d-flex align-items-center">
+          <form class="search-form d-flex align-items-center" role="search" action="/listings/search" method="GET">
+          <input type="text" class="search-input" placeholder="Search destinations, properties..." id="searchInput" name="q">
+          <button class="search-btn" type="submit">
+            <i class="fas fa-search"></i>
+        </button>
+        </form>
+      </div>
+    </div>
+
         <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/listings/new">Airbnb your home</a>
 
@@ -23,3 +35,29 @@
       </div>
     </div>
   </nav>
+
+
+
+<script>
+  const searchInput = document.getElementById("searchInput");
+  const resultsDiv = document.getElementById("searchResults");
+
+  searchInput.addEventListener('keyup', async (event) => {
+    const searchTerm = event.target.value;
+    if (searchTerm.length > 2) {
+      const response = await fetch(`/search?q=${searchTerm}`);
+      const results = await response.json();
+      displayResults(results);
+    } else {
+      resultsDiv.innerHTML = "";
+    }
+  });
+
+  function displayResults(results) {
+    resultsDiv.innerHTML = results.map(r => `
+      <div>
+        <a href="/listings/${r._id}">${r.title}</a>
+      </div>
+    `).join("");
+  }
+</script>

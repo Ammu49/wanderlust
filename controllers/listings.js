@@ -1,3 +1,4 @@
+const { options } = require("joi");
 const Listing = require("../models/listing.js");
 const { config, Map, geocoding } = require("@maptiler/client");
 config.apiKey = process.env.MAP_TOKEN;
@@ -8,6 +9,38 @@ module.exports.index = async (req, res) => {
     const allListings = await Listing.find({});
     res.render("./listings/index.ejs", {allListings});
 };
+
+
+//search
+module.exports.search = async(req, res) => {
+    const searchTerm = req.query.q;
+
+    try {
+        const searchNumber = parseInt(searchTerm, 10);
+        let results ;
+        
+        if(!isNaN(searchNumber)) {
+
+            results = await Listing.find({price: { $lte: searchNumber} })
+        } else {
+            results = await Listing.find({
+            $or: [
+                { title: { $regex: searchTerm, $options: "i" } },
+                { location: { $regex: searchTerm, $options: "i" } },
+                { country: { $regex: searchTerm, $options: "i" } }
+            ]
+         });
+        }
+
+
+
+        res.render("./listings/index.ejs", { allListings: results});
+    } catch (err) {
+        console.log(err);
+        res.status(500).send("Error while searching");
+    }
+}
+
 
 module.exports.renderNewForm = (req, res) => {
     res.render("./listings/new.ejs");
@@ -31,6 +64,8 @@ module.exports.showListings = async(req, res)=> {
     }
     res.render("./listings/show.ejs", {listing});
 };
+
+
 
 module.exports.createListing = async ( req, res, next) => {
     

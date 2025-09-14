@@ -1,138 +1,16 @@
 <% layout("/layouts/boilerplate") %> 
 
-<style>
-        /* Carousel container */
-        .carousel {
-            max-width: 800px;
-            margin: 2rem auto;
-        }
 
-        /* Show only active slide with smooth transition */
-        .carousel-item {
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-        }
-
-        .carousel-item.active {
-            display: flex !important;
-            opacity: 1;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 60px;
-            margin-top: 1.5rem;
-            padding: 2rem 0;
-        }
-
-        /* Filter styling */
-        .filter {
-            text-align: center;
-            cursor: pointer;
-            padding: 1rem;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            min-width: 80px;
-        }
-
-        .filter:hover {
-            background-color: #f8f9fa;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-
-        .filter i {
-            font-size: 1.5rem;
-            color: #6c757d;
-            margin-bottom: 0.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .filter:hover i {
-            color: #068a85;
-        }
-
-        .filter p {
-            margin: 0;
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: #495057;
-            transition: color 0.3s ease;
-        }
-
-        .filter:hover p {
-            color: #068a85;
-        }
-
-        /* Tax toggle styling */
-        .tax-toggle {
-            text-align: center;
-            margin-top: 1rem;
-            padding: 1rem;
-        }
-
-        .tax-toggle .form-check {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .tax-toggle label {
-            font-size: 0.9rem;
-            color: #495057;
-            margin: 0;
-        }
-
-        /* Carousel controls */
-        .carousel-control-prev,
-        .carousel-control-next {
-            width: 8%;
-            color: #068a85;
-        }
-
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            border-radius: 50%;
-            width: 2rem;
-            height: 2rem;
-        }
-
-        /* Demo listings section */
-        .listings-section {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 1rem;
-        }
-
-        .listing-card {
-            border: none;
-            border-radius: 12px;
-            overflow: hidden;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .listing-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .listing-image {
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .listing-price {
-            font-weight: 600;
-            color: #007bff;
-        }
-    </style>
-</head>
 <body>
+    <!-- Fixed Tax Toggle - Top Right -->
+<div class="tax-toggle-fixed">
+    <div class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" role="switch" id="taxToggleFixed" >
+        <label class="form-check-label" for="taxToggleFixed">
+            <span class="toggle-text">Display total after taxes</span>
+        </label>
+    </div>
+</div>
     <!-- Carousel Section -->
     <div id="carouselExample" class="carousel slide" data-bs-ride="false">
         <div class="carousel-inner">
@@ -190,11 +68,9 @@
                     <div><i class="fa-solid fa-water"></i></div>
                     <p>Lakefront</p>      
                 </div>
-                <div class="tax-toggle">
-                    <div class="form-check form-switch">
-                        <input class="form-check-input" type="checkbox" role="switch" id="switchCheckChecked" checked>
-                        <label class="form-check-label" for="switchCheckChecked">Display total after taxes</label>
-                    </div>
+                <div class="filter">
+                    <div><i class="fa-solid fa-umbrella-beach"></i></div>
+                    <p>Beach</p>     
                 </div>
             </div>
         </div>
@@ -221,7 +97,8 @@
             <div class="card-body">
               <p class="card-text">
                 <b><%= listing.title %></b> <br /> 
-                &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "Price not available" %>
+                &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : "Price not available" %> / night 
+                <i class="tax-info">&nbsp; &nbsp;<%= listing.price %></i>
                 %>
             </p>
             </div>
@@ -231,9 +108,17 @@
     </div>
 
     <script>
-      let taxSwitch = document.getElementById("switchCheckChecked");
+      let taxSwitch = document.getElementById("taxToggleFixed");
       taxSwitch.addEventListener("click", () => {
-        console.log("clicked");
-      })
+        console.log("checjed");
+        let taxinfo = document.getElementsByClassName("tax-info");
+        for (let info of taxinfo) {
+            if (taxSwitch.checked) {
+                info.style.display = "inline";   // show when switch is ON
+            } else {
+                info.style.display = "none";     // hide when switch is OFF
+            }
+        }      
+    });
     </script>
 </body>
